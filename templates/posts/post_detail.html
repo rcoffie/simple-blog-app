@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-8">
+
+      <div class="card text-center">
+  <div class="card-header">
+    {{post.category|capfirst}}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{post.content}}</p>
+    <a href="{% url 'update_post' post.id %}" class="card-link">edit</a>
+     <a href="{% url  'delete_post' post.id %} " onclick="return confirm('Sure Want Delete?')" class="card-link">Delete</a>
+  </div>
+  <div class="card-footer text-muted">
+  <span> {{post.created_on| naturaltime}}  </span>  | <span>Post by {{post.author|capfirst}}</span>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}

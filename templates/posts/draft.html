@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block content %}
+<div class="container">
+
+  <div class="row">
+  {% if posts %}
+  {% for each in posts %}
+    <div class="col-md-4">
+      <div class="card" style="width: 18rem;">
+        {%if each.images %}
+            <img src="{{each.images.url}}" class="card-img-top" alt="image">
+        {% else %}
+            <img src="{%static 'post/images/default_post.jpg' %}" class="card-img-top" alt="image">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title"> <a class="text-decoration-none" href="{% url 'post_detail' each.id %}"> {{each.title|capfirst}} </a> </h5>
+          <p class="card-text">{{each.content|truncatewords:30}}</p>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> --> 
+        </div>
+      </div>
+  </div>
+  {% endfor %}
+    {%else %}
+    <div class="alert alert-primary" role="alert">
+      No Draft Availabel yet !
+    </div>
+    {% endif %}
+
+  </div>
+
+</div>
+{% endblock %}

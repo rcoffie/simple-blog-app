@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from post.forms import PostsForm
 from post.models import Posts
 from django.contrib import messages
+
 # Create your views here.
 
 
@@ -17,9 +18,8 @@ def create_post(request):
         create_post_form = PostsForm(request.POST, request.FILES)
         if create_post_form.is_valid():
             create_post_form.save()
+            messages.success(request, 'Category added')
             return redirect('posts_list')
-            # todo an alert message needs to be here
-            # messages.success(request,' Post Created ')
     context = {'create_post_form':create_post_form }
     return render(request, 'posts/create_post.html', context)
 
@@ -36,6 +36,8 @@ def update_post(request, id):
         update_post_form = PostsForm(request.POST, instance=post)
         if update_post_form.is_valid():
             update_post_form.save()
+            # Todo might format the pos title with f string to call it in the message
+            messages.info(request,'Post updated')
             return redirect('posts_list')
     context = {'update_post_form':update_post_form,}
     return render(request, 'posts/update_post.html',context)
@@ -43,6 +45,7 @@ def update_post(request, id):
 
 def delete_post(request, id):
     post = Posts.objects.get(id=id)
+    messages.warning(request, 'post deleted')
     post.delete()
     return redirect('posts_list')
 

@@ -8,7 +8,7 @@
 
       <div class="card text-center">
   <div class="card-header">
-    {{post.category|capfirst}}
+    {{post.get_category_display|capfirst}}
   </div>
   <div class="card-body">
     <h5 class="card-title">{{post.title}}</h5>

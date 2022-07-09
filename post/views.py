@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from post.forms import PostsForm
 from post.models import Posts
+from django.contrib import messages
 # Create your views here.
 
 
@@ -17,6 +18,8 @@ def create_post(request):
         if create_post_form.is_valid():
             create_post_form.save()
             return redirect('posts_list')
+            # todo an alert message needs to be here
+            # messages.success(request,' Post Created ')
     context = {'create_post_form':create_post_form }
     return render(request, 'posts/create_post.html', context)
 

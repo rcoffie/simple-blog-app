@@ -1,15 +1,16 @@
 {% extends 'base.html'%}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
 <div class="container">
   <div class="row">
 
-    <div class="col-md-8">
-    <form class="" action="#" method="POST" enctype='multipart/form-data'>
+    <div class="col-md-7 m-2 p-2">
+      <h1 class="text-center">Create Post </h1>
+    <form class="m-4 p-4" action="#" method="POST" enctype='multipart/form-data'>
       {% csrf_token %}
-      {{create_post_form.as_p}}
-      <input type="submit" name="" value="Create">
+      {{create_post_form | crispy}}
+      <input type="submit" class="btn btn-info" name="" value="Create">
     </form>
 
     </div>

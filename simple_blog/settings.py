@@ -29,6 +29,18 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# Message tags for boostrap alert 
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+messages.DEBUG: 'alert-info',
+messages.INFO: 'alert-info',
+messages.SUCCESS: 'alert-success',
+messages.WARNING: 'alert-warning',
+messages.ERROR: 'alert-danger',
+}
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,12 +51,19 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #django in build apps 
+    #django in build apps
     'django.contrib.humanize',
+     'crispy_forms',
+     "crispy_bootstrap5",
 
     #local Apps
     'post',
 ]
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

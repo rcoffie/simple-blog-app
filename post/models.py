@@ -21,7 +21,7 @@ class Posts(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
     category = models.CharField(max_length=100,choices= CATEGORY, default='others')
-    images = models.ImageField(upload_to='blog_post', blank=True)
+    images = models.ImageField(upload_to='blog_post', default='default.jpg')
 
 
     class Meta:

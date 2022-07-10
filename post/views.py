@@ -36,7 +36,8 @@ def create_post(request):
 
 def post_detail(request, id):
     post = Posts.objects.get(id=id)
-    context = {'post':post}
+    recent_posts = Posts.objects.filter(status=1)[:6]
+    context = {'post':post,'recent_posts':recent_posts,}
     return render(request,'posts/post_detail.html',context)
 
 def update_post(request, id):

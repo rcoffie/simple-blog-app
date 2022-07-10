@@ -20,11 +20,7 @@
   {% for each in posts %}
     <div class="col-md-4 mb-2">
       <div class="card" >
-        {% if each.images %}
           <img src="{{each.images.url}}" class="card-img-top" alt="image">
-        {% else %}
-        <img src="{% static 'post/images/default_post.jpg'%}" class="card-img-top" alt="image">
-        {% endif %}
         <div class="card-body">
           <h5 class="card-title text-center"> <a class="text-decoration-none" href="{% url 'post_detail' each.id %}"> {{each.title|capfirst}} </a> </h5>
           <p class="card-text">{{each.content|truncatewords:30}}</p>
@@ -42,7 +38,7 @@
 
     <!-- Pagination -->
     <!-- TODO: will design this later with bootstrap -->
-    <div class="pagination">
+    <div class="pagination m-2 p-2">
     <span class="step-links">
         {% if posts.has_previous %}
             <a href="?page=1">&laquo; first</a>

@@ -13,8 +13,8 @@
   <div class="card-body">
     <h5 class="card-title">{{post.title}}</h5>
     <p class="card-text">{{post.content}}</p>
-    <a href="{% url 'update_post' post.id %}" class="card-link">edit</a>
-     <a href="{% url  'delete_post' post.id %} " onclick="return confirm('Sure Want Delete?')" class="card-link">Delete</a>
+    <a href="{% url 'update_post' post.id %}" class="btn btn-info card-link text-decoration-none">edit</a>
+     <a href="{% url  'delete_post' post.id %} " onclick="return confirm('Sure Want Delete?')" class="btn btn-danger card-link text-decoartion-none">Delete</a>
   </div>
   <div class="card-footer text-muted">
   <span> {{post.created_on| naturaltime}}  </span>  | <span>Post by {{post.author|capfirst}}</span>

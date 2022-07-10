@@ -2,12 +2,22 @@ from django.shortcuts import render,redirect
 from post.forms import PostsForm
 from post.models import Posts
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 # Create your views here.
 
 
 def posts_list(request):
-    posts = Posts.objects.filter(status=1)
+    posts_list = Posts.objects.filter(status=1)
+    page = request.GET.get('page', 1)
+    paginator = Paginator(posts_list, 9)
+    try:
+         posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     context = {'posts':posts}
     return render(request,'posts/post_list.html',context)
 

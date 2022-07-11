@@ -3,7 +3,7 @@ from post.forms import PostsForm, ReplyForm
 from post.models import Posts, Comment
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -21,15 +21,17 @@ def posts_list(request):
     context = {'posts':posts}
     return render(request,'posts/post_list.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def create_post(request):
     create_post_form = PostsForm()
     context = {'create_post_form':create_post_form }
     if request.method == 'POST':
         create_post_form = PostsForm(request.POST, request.FILES)
         if create_post_form.is_valid():
-            create_post_form.save()
-            messages.success(request, 'Category added')
+            posts = create_post_form.save(commit=False)
+            posts.author = request.user
+            posts.save()
+            messages.success(request, 'Post Created')
             return redirect('posts_list')
     return render(request, 'posts/create_post.html', context)
 
@@ -38,7 +40,7 @@ def post_detail(request, id):
     replyform = ReplyForm()
     post = Posts.objects.get(id=id)
     comment = post.comments.all()
-    recent_posts = Posts.objects.filter(status=1)[:6]    
+    recent_posts = Posts.objects.filter(status=1)[:6]
     context = {'post':post,'recent_posts':recent_posts,'comments':comment, 'replyform':replyform}
     if request.method == 'POST':
         replyform = ReplyForm(request.POST)
@@ -84,4 +86,3 @@ def category(request, category):
     }
 
     return render(request, 'posts/categories.html',context)
-

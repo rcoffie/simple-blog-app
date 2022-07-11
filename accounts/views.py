@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from accounts.forms import NewUserForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -20,7 +21,7 @@ def register(request):
     return render(request, 'accounts/register.html',context)
 
 
-def login(request):
+def user_login(request):
     form = AuthenticationForm()
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -29,6 +30,7 @@ def login(request):
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
+                login(request, user)
                 messages.info(request, f"you are logged in as {username}.")
                 return redirect('posts_list')
             else:
@@ -37,3 +39,9 @@ def login(request):
             messages.error(request, 'invalid username or password')
     context = {'login_form':form}
     return render(request, 'accounts/login.html',context)
+
+
+@login_required(login_url='/login')
+def user_logout(request):
+    logout(request)
+    return redirect('posts_list')

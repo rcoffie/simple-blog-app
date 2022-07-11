@@ -43,16 +43,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Message tags for boostrap alert
-from django.contrib.messages import constants as messages
 
-MESSAGE_TAGS = {
-messages.DEBUG: 'alert-info',
-messages.INFO: 'alert-info',
-messages.SUCCESS: 'alert-success',
-messages.WARNING: 'alert-warning',
-messages.ERROR: 'alert-danger',
-}
 
 
 # Application definition
@@ -72,6 +63,7 @@ INSTALLED_APPS = [
 
     #local Apps
     'post',
+    'accounts',
 ]
 
 

@@ -30,8 +30,17 @@ class Posts(models.Model):
     images = models.ImageField(upload_to='blog_post', default='default.jpg')
 
 
+
     class Meta:
         ordering = ['-created_on']
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    posts = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comments')
+    comments = models.CharField(max_length=200)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.posts.title

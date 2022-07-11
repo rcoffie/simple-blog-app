@@ -4,9 +4,14 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-
+from post.models import Posts
 # Create your views here.
 
+def dashboard(request):
+    # TODO IN FUTURE TEMPLATE MIGHT NEED DATA-TABLE FOR FILTERING
+    posts_list = Posts.objects.all()
+    context ={'posts_list':posts_list}
+    return render(request, 'accounts/dashboard.html',context)
 
 def register(request):
     register_form = NewUserForm()

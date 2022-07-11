@@ -1,0 +1,42 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-10">
+
+      <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Date Created</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for each in posts_list %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td> <a class="text-decoration-none" href="{% url 'post_detail' each.id  %}"> {{each.title}}</a> </td>
+      <td>{{each.created_on}}</td>
+      <td>
+         <a href="{% url 'update_post' each.id %}" type="button" class="btn btn-outline-primary">Edit</a>
+         <a href="{% url 'delete_post' each.id  %}" type="button" class="btn btn-outline-danger">Delete</a>
+        </td>
+
+    </tr>
+    {% endfor %}
+
+
+  </tbody>
+</table>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

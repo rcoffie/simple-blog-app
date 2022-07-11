@@ -52,8 +52,9 @@
               Hi!  {{request.user.username}}
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{% url 'user_logout' %}">Logout</a></li>
                 <li><a class="dropdown-item" href="{% url 'create_post' %}">Add Post</a></li>
+                <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li><a class="dropdown-item" href="{% url 'user_logout' %}">Logout</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Others</a></li>
               </ul>

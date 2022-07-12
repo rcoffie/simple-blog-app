@@ -51,6 +51,7 @@ def post_detail(request, id):
             return render(request,'posts/post_detail.html',context)
     return render(request,'posts/post_detail.html',context)
 
+@login_required(login_url='/accounts/login/')
 def update_post(request, id):
     post = Posts.objects.get(id=id)
     update_post_form = PostsForm(instance=post)
@@ -64,7 +65,7 @@ def update_post(request, id):
     context = {'update_post_form':update_post_form,}
     return render(request, 'posts/update_post.html',context)
 
-
+@login_required(login_url='/accounts/login/')
 def delete_post(request, id):
     post = Posts.objects.get(id=id)
     messages.warning(request, 'post deleted')
@@ -77,7 +78,7 @@ def draft(request):
     return render(request, 'posts/draft.html', context)
 
 
-
+# TODO will write a logic to list all post related to a particular category 
 def category(request, category):
     posts = Posts.objects.filter(category__name__contains=category).order_by('-created_on')
     context = {

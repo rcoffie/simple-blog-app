@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <h5 class="text-center m-4 p-4"> All Posts realted to {{category|capfirst}}</h5>
+    <hr>
+      {% if posts %}
+      {% for each in posts %}
+      <a href="{% url 'post_detail' each.id %}" class="text-decoration-none ">
+      <div class="col-md-10 shadow-lg  rounded">
+        <div class="card mb-3" >
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{each.images.url}}" class="img-fluid rounded-start" alt="{{each.title}}">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{each.title}}</h5>
+                <p class="card-text">{{each.content}}</p>
+                <p class="card-text"><small class="text-muted"> <strong> Post by {{each.author|capfirst}} | {{each.created_on| naturaltime}} </strong> </small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+    </a>
+    {% endfor %}
+    {% else %}
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Well done!</h4>
+      <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+      <hr>
+      <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

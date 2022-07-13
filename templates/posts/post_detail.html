@@ -18,7 +18,8 @@
        <span><small class="">
           {% for cat in post.category.all %}
           <!--  TODO: will try to add number views or read -->
-         <small > <a class="bg-primary text-white text-decoration-none" href="{% url 'category' cat.name %}"> {{cat}} | </a> </small>
+            <span class="badge bg-primary rounded-pill"> <a class=" text-white text-decoration-none" href="{% url 'category' cat.name %}"> {{cat}}  </a> </span>
+
           {% endfor %}
        </small> </span>
     </p>

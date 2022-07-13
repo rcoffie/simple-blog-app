@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from post.forms import PostsForm, ReplyForm
-from post.models import Posts, Comment
+from post.models import Posts, Comment, Category
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -78,12 +79,13 @@ def draft(request):
     return render(request, 'posts/draft.html', context)
 
 
-# TODO will write a logic to list all post related to a particular category 
+
 def category(request, category):
+    category = Category.objects.get(name=category)
     posts = Posts.objects.filter(category__name__contains=category).order_by('-created_on')
     context = {
-    'category':category,
     'posts':posts,
+    'category':category,
     }
 
     return render(request, 'posts/categories.html',context)

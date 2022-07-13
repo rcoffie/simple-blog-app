@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from post.forms import PostsForm, ReplyForm
-from post.models import Posts, Comment
+from post.models import Posts, Comment, Category
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
@@ -79,11 +79,10 @@ def draft(request):
 
 
 # TODO will write a logic to list all post related to a particular category 
-def category(request, category):
-    posts = Posts.objects.filter(category__name__contains=category).order_by('-created_on')
-    context = {
-    'category':category,
-    'posts':posts,
-    }
-
-    return render(request, 'posts/categories.html',context)
+def category(request):
+    posts = Posts.objects.all()
+    cat_in = 'tech'
+    posts_type = Posts.objects.filter(status=1,category__name__contains=cat_in).order_by('-created_on')
+    categories = Category.objects.all()
+    context = {'category': categories, 'posts':posts, 'posts_type':posts_type}
+    return render(request, 'posts/categories.html', context)

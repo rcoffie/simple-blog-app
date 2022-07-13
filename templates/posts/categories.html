@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-7">
+          {%if posts_type %} 
+          <h1>{{posts_type.category}}</h1>
+            {%for post in posts_type %}
+            <br>
+            <div class="card" style="width: 37rem;"> 
+                <img src="{{post.images.url}}" class="card-img-top" alt="image">
+                <div class="card-body">
+                    <h5 class="card-title text-center"> <a class="text-decoration-none" href="{% url 'post_detail' post.id %}"> {{post.title|capfirst}} </a> </h5>
+                    <p class="card-text">{{post.content|truncatewords:30}}</p>
+                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    <span> {{post.created_on| naturaltime}}  </span>  | <span>Post by {{post.author|capfirst}}</span> 
+                </div>
+            </div>
+            {%endfor%} 
+         {%else%}
+        <h3>No post with this category</h3>
+        {%endif%} 
+
+
+    </div>
+
+    <div class="col-md-5">
+        <h3>Other Categories</h3>
+        {%for cat in category%}
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a class="text-decoration-none  " href="{{post.cat.category}}"> <h6> {{cat.name}}</h6></a>
+            <span class="badge bg-primary rounded-pill">14</span>
+          </li>
+        </ul>
+        {%endfor%}
+    </div>
+  </div>
+</div>
+{% endblock %}

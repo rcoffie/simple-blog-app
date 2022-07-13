@@ -8,58 +8,55 @@
   {%endfor%}
   <div class="row">
     <div class="col-md-7">
+      <div class="card mb-3">
+        <img src="{{post.images.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+          <p class="card-text">{{post.content}}
+            <br>
+             <span><small class="">
+                {% for cat in post.category.all %}
+                <!--  TODO: will try to add number views or read -->
+              <small > <a class="bg-primary text-white text-decoration-none" href="{% url 'category' cat.name %}"> {{cat}} | </a> </small>
+                {% endfor %}
+            </small> </span> 
+          </p>
+          <p class="card-text"><small class="text-muted">{{post.created_on| naturaltime}} | <span>Post by {{post.author|capfirst}} </small></p>
+          <hr>
+          <h4>Comments</h4>
+          {%if comments %}
+            {%for comment in comments%}
+            <p><strong>{{ comment.date_added }}</strong> <br>
+            {{ comment.comments }}</p>
+            <hr>
+            {% endfor %}
+          {% else %}
+            No comment Yet... Add one
+          {% endif %}
+          {%if user.is_authenticated%}
+            <form action='' method="POST">
+              {% csrf_token %}
+              {{replyform | crispy}}
+              <input class='btn btn-info' type='submit' value='comment'>
+            </form>
+          {% else %}
+            <p><strong>You have to <a href="{%url 'login' %}">Login</a></strong> to comment on a post</p>
+          {% endif %}
 
-<div class="card mb-3">
-  <img src="{{post.images.url}}" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{post.title}}</h5>
-    <p class="card-text">{{post.content}}
-       <br>
-       <span><small class="">
-          {% for cat in post.category.all %}
-          <!--  TODO: will try to add number views or read -->
-         <small > <a class="bg-primary text-white text-decoration-none" href="{% url 'category' cat.name %}"> {{cat}} | </a> </small>
-          {% endfor %}
-       </small> </span>
-    </p>
-    <p class="card-text"><small class="text-muted">{{post.created_on| naturaltime}} | <span>Post by {{post.author|capfirst}} </small></p>
-    <hr>
-    <h4>Comments</h4>
-    {%if comments %}
-    {%for comment in comments%}
-    <p><strong>{{ comment.date_added }}</strong> <br>
-    {{ comment.comments }}</p>
-    <hr>
-    {% endfor %}
-    {% else %}
-    No comment Yet... Add one
-    {% endif %}
-    <form action='' method="POST">
-      {% csrf_token %}
-      {{replyform | crispy}}
-      <input class='btn btn-info' type='submit' value='comment'>
-    </form>
-  </div>
-</div>
-
-    </div>
-
-    <div class="col-md-4">
-      <h3>Lastest Posts</h3>
-
-      <ul class="list-group">
-        {% for each in recent_posts %}
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-       <a class="text-decoration-none  " href="{% url 'post_detail' each.id %}"> <h6> {{each.title}}</h6></a>
-      <span class="badge bg-primary rounded-pill">14</span>
-    </li>
-    {% endfor %}
-
-  </ul>
-
+        </div>
       </div>
     </div>
+    <div class="col-md-4">
+      <h3>Lastest Posts</h3>
+      <ul class="list-group">
+        {% for each in recent_posts %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a class="text-decoration-none  " href="{% url 'post_detail' each.id %}"> <h6> {{each.title}}</h6></a>
+          <span class="badge bg-primary rounded-pill">14</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
   </div>
-
 </div>
 {% endblock %}

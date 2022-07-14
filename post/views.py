@@ -78,8 +78,6 @@ def draft(request):
     context = {'posts':posts}
     return render(request, 'posts/draft.html', context)
 
-
-
 def category(request, category):
     category = Category.objects.get(name=category)
     posts = Posts.objects.filter(category__name__contains=category).order_by('-created_on')
@@ -89,3 +87,4 @@ def category(request, category):
     }
 
     return render(request, 'posts/categories.html',context)
+

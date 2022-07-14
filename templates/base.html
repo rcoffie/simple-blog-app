@@ -31,7 +31,7 @@
                 Categories
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" value='Technology' href="{%url 'category' %}">Technology</a></li>
+                <li><a class="dropdown-item" value='Technology' href="#">Technology</a></li>
                 <li><a class="dropdown-item" href="#">Fashion</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Others</a></li>
@@ -57,8 +57,8 @@
                   <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
                 {% else %}
                 <li><a class="dropdown-item disabled" aria-disabled="true" href="{% url 'create_post' %}">Add Post</a></li>
-                <li><a class="dropdown-item disabled" aria-disabled="true" href="{% url 'dashboard' %}">Dashboard</a></li>     
-                {% endif %}           
+                <li><a class="dropdown-item disabled" aria-disabled="true" href="{% url 'dashboard' %}">Dashboard</a></li>
+                {% endif %}
                 <li><a class="dropdown-item" href="{% url 'user_logout' %}">Logout</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Others</a></li>

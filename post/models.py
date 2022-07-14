@@ -13,11 +13,7 @@ STATUS = {
 (1, 'Publish')
 }
 
-CATEGORY = {
-('tech','Technology'),
-('fash','Fashion'),
-('others','Others')
-}
+
 
 class Posts(models.Model):
     title = models.CharField(max_length=100)
@@ -31,7 +27,7 @@ class Posts(models.Model):
 
 
 
-    class Meta: 
+    class Meta:
         ordering = ['-created_on']
 
     def __str__(self):
@@ -39,7 +35,7 @@ class Posts(models.Model):
 
 class Comment(models.Model):
     posts = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comments')
-    comments = models.CharField(max_length=200)
+    comments = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

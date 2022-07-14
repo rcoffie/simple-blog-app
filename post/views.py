@@ -1,9 +1,10 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, HttpResponseRedirect
 from post.forms import PostsForm, ReplyForm
 from post.models import Posts, Comment, Category
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 
 # Create your views here.
@@ -41,15 +42,19 @@ def post_detail(request, id):
     replyform = ReplyForm()
     post = Posts.objects.get(id=id)
     comment = post.comments.all()
+    total_comments = comment.count()
     recent_posts = Posts.objects.filter(status=1)[:6]
-    context = {'post':post,'recent_posts':recent_posts,'comments':comment, 'replyform':replyform}
+
     if request.method == 'POST':
         replyform = ReplyForm(request.POST)
         if replyform.is_valid():
             new_reply = replyform.save(commit=False)
-            new_reply.posts = post
+            user = request.user
+            comments = request.POST['comments']
+            new_reply = Comment.objects.create(user=user,comments=comments,posts=post)
             new_reply.save()
-            return render(request,'posts/post_detail.html',context)
+            return HttpResponseRedirect(reverse('post_detail', args=[post.id]))
+    context = {'post':post,'recent_posts':recent_posts,'comments':comment, 'replyform':replyform,'total_comments':total_comments,}
     return render(request,'posts/post_detail.html',context)
 
 @login_required(login_url='/accounts/login/')
@@ -87,4 +92,3 @@ def category(request, category):
     }
 
     return render(request, 'posts/categories.html',context)
-

@@ -35,6 +35,7 @@ class Posts(models.Model):
 
 class Comment(models.Model):
     posts = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment')
     comments = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 

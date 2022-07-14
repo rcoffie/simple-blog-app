@@ -24,21 +24,34 @@
           </p>
           <p class="card-text"><small class="text-muted">{{post.created_on| naturaltime}} | <span>Post by {{post.author|capfirst}} </small></p>
           <hr>
-          <h4>Comments</h4>
+
+          <span class="badge bg-primary rounded-pill">   {{total_comments}} Comments </span>
+          <form action='' method="POST">
+            {% csrf_token %}
+            {{replyform | crispy}}
+            {% if request.user.is_authenticated %}
+            <input class='btn btn-primary' type='submit' value='comment'>
+            {% else %}
+
+             <div class="alert alert-secondary" role="alert">
+               Login to post comment <a class="text-decoration-none " href="{% url 'login' %}"> <strong>Login</strong></a>
+             </div>
+             {% endif %}
+          </form>
           {%if comments %}
+
           {%for comment in comments%}
           <p><strong>{{ comment.date_added }}</strong> <br>
           {{ comment.comments }}</p>
           <hr>
           {% endfor %}
           {% else %}
-          No comment Yet... Add one
+
+          <div class="alert alert-success" role="alert">
+                No comment Yet... Add one
+              </div>
           {% endif %}
-          <form action='' method="POST">
-            {% csrf_token %}
-            {{replyform | crispy}}
-            <input class='btn btn-info' type='submit' value='comment'>
-          </form>
+
         </div>
       </div>
 

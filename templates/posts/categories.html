@@ -1,43 +1,43 @@
 {% extends 'base.html' %}
 {% load humanize %}
-{% load static %}
 {% block content %}
+
 <div class="container">
-
   <div class="row">
-    <div class="col-md-7">
-          {%if posts_type %} 
-          <h1>{{posts_type.category}}</h1>
-            {%for post in posts_type %}
-            <br>
-            <div class="card" style="width: 37rem;"> 
-                <img src="{{post.images.url}}" class="card-img-top" alt="image">
-                <div class="card-body">
-                    <h5 class="card-title text-center"> <a class="text-decoration-none" href="{% url 'post_detail' post.id %}"> {{post.title|capfirst}} </a> </h5>
-                    <p class="card-text">{{post.content|truncatewords:30}}</p>
-                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                    <span> {{post.created_on| naturaltime}}  </span>  | <span>Post by {{post.author|capfirst}}</span> 
-                </div>
+    <h5 class="text-center m-4 p-4"> All Posts realted to {{category|capfirst}}</h5>
+    <hr>
+      {% if posts %}
+      {% for each in posts %}
+      <a href="{% url 'post_detail' each.id %}" class="text-decoration-none ">
+      <div class="col-md-10 shadow-lg  rounded">
+        <div class="card mb-3" >
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{each.images.url}}" class="img-fluid rounded-start" alt="{{each.title}}">
             </div>
-            {%endfor%} 
-         {%else%}
-        <h3>No post with this category</h3>
-        {%endif%} 
-
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{each.title}}</h5>
+                <p class="card-text">{{each.content}}</p>
+                <p class="card-text"><small class="text-muted"> <strong> Post by {{each.author|capfirst}} | {{each.created_on| naturaltime}} </strong> </small></p>
+              </div>
+            </div>
+          </div>
+        </div>
 
     </div>
-
-    <div class="col-md-5">
-        <h3>Other Categories</h3>
-        {%for cat in category%}
-        <ul class="list-group">
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a class="text-decoration-none  " href="{{post.cat.category}}"> <h6> {{cat.name}}</h6></a>
-            <span class="badge bg-primary rounded-pill">14</span>
-          </li>
-        </ul>
-        {%endfor%}
+    </a>
+    {% endfor %}
+    {% else %}
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Well done!</h4>
+      <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+      <hr>
+      <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
     </div>
+    {% endif %}
   </div>
 </div>
+
 {% endblock %}
+

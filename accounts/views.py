@@ -20,7 +20,7 @@ def register(request):
         if register_form.is_valid():
             user = register_form.save()
             messages.success(request, 'Registration Successful.')
-            return redirect(user_login)
+            return redirect('posts_list')
         messages.error(request, 'Unsuccesful registration , invalid information')
     context = {'register_form':register_form}
     return render(request, 'accounts/register.html',context)

@@ -8,5 +8,6 @@ urlpatterns = [
    path('<int:id>/delete/',views.delete_post,name='delete_post'),
    path('draft', views.draft, name='draft'),
    path('category/<str:category>/',views.category,name='category'),
+   path('likes/<int:pk>', views.like_post, name="like_post"),
 
 ]

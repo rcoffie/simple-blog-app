@@ -1,10 +1,12 @@
-from django.shortcuts import render,redirect, HttpResponseRedirect
+from pickle import FALSE
+from django.shortcuts import get_object_or_404, render,redirect, HttpResponseRedirect
 from post.forms import PostsForm, ReplyForm
 from post.models import Posts, Comment, Category
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.http import HttpResponseRedirect
 
 
 # Create your views here.
@@ -44,7 +46,10 @@ def post_detail(request, id):
     comment = post.comments.all()
     total_comments = comment.count()
     recent_posts = Posts.objects.filter(status=1)[:6]
-
+    total_likes = post.likes.count()
+    liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        liked = True
     if request.method == 'POST':
         replyform = ReplyForm(request.POST)
         if replyform.is_valid():
@@ -54,8 +59,22 @@ def post_detail(request, id):
             new_reply = Comment.objects.create(user=user,comments=comments,posts=post)
             new_reply.save()
             return HttpResponseRedirect(reverse('post_detail', args=[post.id]))
-    context = {'post':post,'recent_posts':recent_posts,'comments':comment, 'replyform':replyform,'total_comments':total_comments,}
+    context = {'post':post,'recent_posts':recent_posts,'comments':comment, 'replyform':replyform,'total_comments':total_comments, 'total_likes':total_likes, 'liked':liked}
     return render(request,'posts/post_detail.html',context)
+
+ 
+def like_post(request, pk):
+    post = get_object_or_404(Posts, id=request.POST.get('post_id'))
+    liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked = False
+    else:     
+        post.likes.add(request.user)
+        liked = True
+    return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
+
+
 
 @login_required(login_url='/accounts/login/')
 def update_post(request, id):

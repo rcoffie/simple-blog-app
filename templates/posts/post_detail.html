@@ -57,11 +57,14 @@
              </div>
              {% endif %}
           </form>
+          <hr>
           {%if comments %}
 
-          {%for comment in comments%}
-          <p><strong>{{ comment.date_added }}</strong> <br>
-          {{ comment.comments }}</p>
+          {%for each in comments%}
+          <p><strong>{{ each.user|capfirst }}</strong> <br>
+
+          {{ each.comments }}</p>
+          <footer class="blockquote-footer"> <cite title="Source Title">{{each.date_added| naturaltime}}</cite></footer>
           <hr>
           {% endfor %}
           {% else %}

@@ -32,7 +32,7 @@ Passwords are hashed wich makes it more secure against threat.
 Only superuser can make a post.
 
 # credit 
-* [profile](https://github.com/rcoffie)
-* [profile](https://github.com/kausaratg)
+* [Coffie](https://github.com/rcoffie)
+* [Kassy](https://github.com/kausaratg)
 
 

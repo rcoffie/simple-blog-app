@@ -33,6 +33,6 @@ Only superuser can make a post.
 
 # credit 
 * [profile] (github.com/rcoffie)
-* [profile] (github.com/kausaratg)
+* [profile](https://github.com/kausaratg)
 
 

@@ -26,12 +26,12 @@ This is a blog app made with python, Django, HTML, and Bootstrap. Some of the Fe
 *Go to home page and check the blogs
 * You can also comment on post and also like and unlike the post
 
-#Note:
+# Note:
 There is also admin privilege for superuser. It can be accessed by only the superuse.
 Passwords are hashed wich makes it more secure against threat.
 Only superuser can make a post.
 
-#creadit 
+# creadit 
 * [profile] (github.com/rcoffie)
 * [profile] (github.com/kausaratg)
 

@@ -21,9 +21,9 @@ This is a blog app made with python, Django, HTML, and Bootstrap. Some of the Fe
 ## How to use the project
 * To use the project, 
 * Create an Account by clicking on the register link in the navbar
-*After creating an account it will automatically redirect to the login page
+* After creating an account it will automatically redirect to the login page
 * login with the username and password
-*Go to home page and check the blogs
+* Go to home page and check the blogs
 * You can also comment on post and also like and unlike the post
 
 # Note:

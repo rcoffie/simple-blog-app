@@ -31,7 +31,7 @@ There is also admin privilege for superuser. It can be accessed by only the supe
 Passwords are hashed wich makes it more secure against threat.
 Only superuser can make a post.
 
-# creadit 
+# credit 
 * [profile] (github.com/rcoffie)
 * [profile] (github.com/kausaratg)
 

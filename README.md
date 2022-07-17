@@ -27,7 +27,7 @@ This is a blog app made with python, Django, HTML, and Bootstrap. Some of the Fe
 * You can also comment on post and also like and unlike the post
 
 # Note:
-There is also admin privilege for superuser. It can be accessed by only the superuse.
+There is also admin privilege for superuser. It can be accessed by only the superuser.
 Passwords are hashed wich makes it more secure against threat.
 Only superuser can make a post.
 

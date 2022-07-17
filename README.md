@@ -1,5 +1,5 @@
 # BLOG APP
-# DESCRIPTION
+## DESCRIPTION
 This is a blog app made with python, Django, HTML, and Bootstrap. Some of the Features are:
 * Login 
 * Register

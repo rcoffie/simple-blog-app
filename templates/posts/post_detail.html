@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% load crispy_forms_tags %}
+{% block title%} {{post.title}} {% endblock %}
 {% block content %}
 {%load static%}
 <div class="container">
@@ -25,8 +26,26 @@
           </p>
           <p class="card-text"><small class="text-muted">{{post.created_on| naturaltime}} | <span>Post by {{post.author|capfirst}} </small></p>
           <hr>
-
-          <span class="badge bg-primary rounded-pill">   {{total_comments}} Comments </span>
+          <div class="row">
+            <div class="col-6">
+              <span class="badge bg-primary rounded-pill">   {{total_comments}} Comments </span>
+            </div>
+            <div class = "col-6">
+              {%if user.is_authenticated%}
+              {%if liked %}
+              <form action="{%url "like_post" post.pk%}"method="POST">
+                {%csrf_token%}
+                <button class="btn btn-danger btn-sm" type="submit" name="post_id" value='{{post.id}}'><img width="35px" src="{%static 'post/images/like.png'%}" alt="like"></button> - {{total_likes}} likes
+              </form>
+              {%else%}
+              <form action="{%url "like_post" post.pk%}"method="POST">
+              {%csrf_token%}
+              <button class="btn btn-primary btn-sm" type="submit" name="post_id" value='{{post.id}}'><img width="35px" src="{%static 'post/images/like.png'%}" alt="like"></button> - {{total_likes}} likes
+              </form>
+              {% endif %}
+              {%endif%}
+            </div>
+          </div>
           <form action='' method="POST">
             {% csrf_token %}
             {{replyform | crispy}}
@@ -39,11 +58,14 @@
              </div>
              {% endif %}
           </form>
+          <hr>
           {%if comments %}
 
-          {%for comment in comments%}
-          <p><strong>{{ comment.date_added }}</strong> <br>
-          {{ comment.comments }}</p>
+          {%for each in comments%}
+          <p><strong>{{ each.user|capfirst }}</strong> <br>
+
+          {{ each.comments }}</p>
+          <footer class="blockquote-footer"> <cite title="Source Title">{{each.date_added| naturaltime}}</cite></footer>
           <hr>
           {% endfor %}
           {% else %}
@@ -52,19 +74,7 @@
                 No comment Yet... Add one
               </div>
           {% endif %}
-          {%if user.is_authenticated%}
-              {%if liked %}
-              <form action="{%url "like_post" post.pk%}"method="POST">
-                {%csrf_token%}
-                <button class="btn btn-danger btn-sm" type="submit" name="post_id" value='{{post.id}}'><img width="50px" src="{%static 'post/images/like.png'%}" alt="like"></button> - {{total_likes}} likes
-              </form>
-              {%else%}
-              <form action="{%url "like_post" post.pk%}"method="POST">
-              {%csrf_token%}
-              <button class="btn btn-primary btn-sm" type="submit" name="post_id" value='{{post.id}}'><img width="50px" src="{%static 'post/images/like.png'%}" alt="like"></button> - {{total_likes}} likes
-              </form>
-              {% endif %}
-          {%endif%}
+
         </div>
       </div>
 

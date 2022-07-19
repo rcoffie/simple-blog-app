@@ -69,7 +69,7 @@ def like_post(request, pk):
     if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
         liked = False
-    else:     
+    else:       
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))

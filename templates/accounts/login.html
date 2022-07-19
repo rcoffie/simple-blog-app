@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% block title%} Login {% endblock %}
 {% block content %}
 <div class="container">
   <div class="row">
@@ -10,7 +11,7 @@
         {{login_form|crispy}}
         <input type="submit" class="btn btn-primary" name="" value="login">
       </form>
-      <p class="text-center">Don't have an account? <a href="{% url 'register' %}">Create an account</a>.</p>
+      <p class="text-center">Don't have an account? <a class="text-decoration-none" href="{% url 'register' %}">Create an account</a>.</p>
     </div>
   </div>
 </div>

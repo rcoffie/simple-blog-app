@@ -7,7 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse, reverse_lazy
 from django.http import HttpResponseRedirect
-
+from django.db.models import Q
 
 # Create your views here.
 
@@ -62,14 +62,14 @@ def post_detail(request, id):
     context = {'post':post,'recent_posts':recent_posts,'comments':comment, 'replyform':replyform,'total_comments':total_comments, 'total_likes':total_likes, 'liked':liked}
     return render(request,'posts/post_detail.html',context)
 
- 
+
 def like_post(request, pk):
     post = get_object_or_404(Posts, id=request.POST.get('post_id'))
     liked = False
     if post.likes.filter(id=request.user.id).exists():
         post.likes.remove(request.user)
         liked = False
-    else:       
+    else:
         post.likes.add(request.user)
         liked = True
     return HttpResponseRedirect(reverse('post_detail', args=[str(pk)]))
@@ -111,3 +111,16 @@ def category(request, category):
     }
 
     return render(request, 'posts/categories.html',context)
+
+
+def search_post(request):
+    query = request.GET.get('q')
+
+    if query:
+        posts = Posts.objects.all().filter(
+        Q(title__icontains=query)|
+        Q(content__icontains=query)|
+        Q(author__username=query)
+        )
+        context = {'posts':posts}
+    return render(request, 'posts/search.html',context)

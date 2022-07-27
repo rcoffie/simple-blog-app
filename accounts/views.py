@@ -1,9 +1,10 @@
+from unicodedata import category
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import redirect, render
-from post.models import Posts
+from post.models import Posts, Category
 
 from accounts.forms import NewUserForm
 
@@ -54,3 +55,4 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect("posts_list")
+

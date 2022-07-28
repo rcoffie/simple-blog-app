@@ -12,4 +12,6 @@ urlpatterns = [
     path("category/<str:category>/", views.category, name="category"),
     path("likes/<int:pk>", views.like_post, name="like_post"),
     path("search/", views.search_post, name="search_post"),
+    path('explore/', views.explore, name="explore"),
+    path('explore_detail/<str:pk>', views.explore_detail, name='explore_detail')
 ]

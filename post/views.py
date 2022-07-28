@@ -142,3 +142,19 @@ def search_post(request):
         )
         context = {"posts": posts}
     return render(request, "posts/search.html", context)
+
+
+def explore(request):
+    category = Category.objects.all()
+    context = {
+        'category':category
+    }
+    return render(request, 'posts/explore.html', context)
+
+def explore_detail(request, pk):
+    cat = Category.objects.filter(id=pk)
+    post =Posts.objects.all().filter(category=pk)
+    context = {'post':post, 'cat':cat}
+    return render(request, 'posts/explore_detail.html', context)
+  
+

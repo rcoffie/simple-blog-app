@@ -37,8 +37,13 @@
                 <li><a class="dropdown-item" href="#">Others</a></li>
               </ul>
             </li> -->
+            {% if request.user.is_staff%}
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'draft' %}">Draft</a>
+              </li>
+            {% endif %}
             <li class="nav-item">
-              <a class="nav-link" href="{%url 'draft' %}">Draft</a>
+              <a class="nav-link" href="{%url 'explore' %}">Explore</a>
             </li>
           </ul>
           <form class="d-flex" action="{% url 'search_post'  %}" method="">
